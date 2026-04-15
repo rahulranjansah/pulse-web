@@ -16,6 +16,7 @@ export const site = {
     technology: "#technology", // Internal technology overview
     contact: "#contact",
     demo: "#demo",
+    docs: "https://pulsesuite0.readthedocs.io",
   },
 
   // Hero section

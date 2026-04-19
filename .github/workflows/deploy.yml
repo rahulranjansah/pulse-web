@@ -1,0 +1,64 @@
+name: Deploy to GitHub Pages
+
+# Builds the static site and publishes it to the `gh-pages` branch
+# whenever main is updated. GitHub Pages serves from that branch.
+#
+# First-time setup (one-off, in the repo's GitHub UI):
+#   Settings → Pages → Source = "GitHub Actions"
+#
+# Manual runs are also allowed via the "Run workflow" button on the Actions tab.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Only one concurrent deploy; cancel older runs if a newer push arrives.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # BASE_PATH must match the repo name so asset URLs resolve under
+      # https://<user>.github.io/<repo>/. If you rename the repo, update this.
+      # If you add a custom domain, set BASE_PATH: "/" instead.
+      - name: Build
+        env:
+          BASE_PATH: /pulse-web/
+        run: pnpm build
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

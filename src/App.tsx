@@ -1,20 +1,19 @@
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
-import { Technology } from "@/components/Technology";
-import { PulseDesigner3D } from "@/components/PulseDesigner3D";
-import { SBEVisualizer3D } from "@/components/SBEVisualizer3D";
-import { UseCases } from "@/components/UseCases";
-import { Demo } from "@/components/Demo";
-import { Comparison } from "@/components/Comparison";
+import { Positioning } from "@/components/Positioning";
 import { CTA } from "@/components/CTA";
+import { ForTeams } from "@/components/ForTeams";
 import { Footer } from "@/components/Footer";
 
 /**
- * Homepage. Composed entirely from modular section components.
+ * Homepage. One page, composed from modular components.
  *
- * To add a new section: create a new file under src/components/,
- * import it here, and drop it into the JSX. Nothing else to wire up.
+ * To add a section: drop a new component under src/components/, import
+ * it here, place it in the flow. Copy lives in src/content/site.ts.
+ *
+ * v1 section order:
+ *   Nav → Hero → Differentiators → Positioning → CTA → ForTeams → Footer
  */
 export default function App() {
   return (
@@ -23,13 +22,9 @@ export default function App() {
       <main className="flex-1">
         <Hero />
         <Features />
-        <Technology />
-        <PulseDesigner3D />
-        <SBEVisualizer3D />
-        <Demo />
-        <UseCases />
-        <Comparison />
+        <Positioning />
         <CTA />
+        <ForTeams />
       </main>
       <Footer />
     </div>

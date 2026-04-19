@@ -1,167 +1,149 @@
 /**
  * Single source of truth for all site copy and links.
  *
- * Edit this file to change wording, links, or feature lists.
- * Components import from here so you never touch JSX to update copy.
+ * Edit this file to change wording, links, or any visible text.
+ * No component should hardcode copy — if you see text in a .tsx file
+ * that feels like it should live here, move it here.
  */
 
 export const site = {
   name: "PulseSuite",
-  tagline: "Ultrafast Photonics Simulation Platform",
+
+  // One-line description used in the <title> tag and meta description.
+  // Kept intentionally narrow to match our real positioning.
+  tagline: "Coupled Quantum-Electromagnetic Simulation for Ultrafast Semiconductor Devices",
   description:
-    "End-to-end simulation software for designing ultrafast laser systems, quantum photonic devices, and next-generation optoelectronic components.",
+    "Open-source physics toolkit for designing ultrafast semiconductor laser and quantum photonic devices. Couples 3D Maxwell electromagnetics with Semiconductor Bloch Equations in a single self-consistent solver.",
 
-  // External links
+  // External links. Everything visitor-facing goes through here so we
+  // can swap destinations (e.g. point CTAs to a real signup form later)
+  // without touching component JSX.
   links: {
-    technology: "#technology", // Internal technology overview
-    contact: "#contact",
-    demo: "#demo",
     docs: "https://pulsesuite0.readthedocs.io",
+    github: "https://github.com/pulsesuite0/pulsesuite",
+    paper: "https://doi.org/10.1364/OE.27.023573", // Gulley & Huang 2019
   },
 
-  // Hero section
+  // Nav bar sections. Keep this list short — long navs look unfocused
+  // for a v1 marketing site.
+  nav: [
+    { label: "What it is", href: "#differentiators" },
+    { label: "Where it fits", href: "#positioning" },
+    { label: "Docs", href: "https://pulsesuite0.readthedocs.io" },
+    { label: "GitHub", href: "https://github.com/pulsesuite0/pulsesuite" },
+  ],
+
+  // Hero section.
+  // Tone: honest about what we are (a specialized solver), confident
+  // about the differentiator (self-consistent coupling), no overclaim.
   hero: {
-    eyebrow: "Quantum-Accurate · GPU-Accelerated · Production-Ready",
-    headline: "Design at the Quantum-Classical Boundary",
+    // eyebrow: "Open source · LGPL · Alpha",
+    headline: "Coupled quantum-electromagnetic simulation for ultrafast semiconductor devices.",
     subhead:
-      "PulseSuite is the only simulation platform that couples 3D Maxwell electromagnetics with Semiconductor Bloch Equations — delivering quantum-accurate carrier dynamics and light propagation in a single, self-consistent solver.",
-    primaryCta: { label: "Request a Demo", href: "#contact" },
-    secondaryCta: { label: "See It In Action", href: "#demo" },
+      "PulseSuite couples Semiconductor Bloch Equations with a 3D pseudo-spectral Maxwell solver evolved self-consistently at every timestep. Built for quantum cascade lasers, VCSELs, quantum-confined modulators, and other devices where classical FDTD and TCAD alone aren't enough.",
+    primaryCta: { label: "Read the Docs", href: "https://pulsesuite0.readthedocs.io" },
+    secondaryCta: { label: "View on GitHub", href: "https://github.com/pulsesuite0/pulsesuite" },
   },
 
-  // Value proposition stats
-  stats: [
-    { value: "3D", label: "Full-wave Maxwell solver" },
-    { value: "fs", label: "Femtosecond time resolution" },
-    { value: "GPU", label: "CUDA-accelerated" },
-    { value: "Self-consistent", label: "Quantum + EM coupling" },
-  ],
-
-  // Feature cards - differentiated from competitors
-  features: [
+  // Three differentiators — no more, no less.
+  // Each one is specific enough that a physicist could verify it,
+  // and broad enough that a non-physicist grasps the "so what".
+  differentiators: [
     {
-      title: "Full 3D Electromagnetic Propagation",
-      body: "Pseudo-spectral time-domain Maxwell solver with leapfrog integration. Simulate pulse propagation through complex 3D structures with spectral accuracy and automatic CFL stability.",
-      icon: "3d",
+      title: "Self-consistent coupling, not a stitched workflow",
+      body:
+        "Maxwell fields drive quantum carrier transitions, and the resulting microscopic polarization feeds back into Maxwell at every timestep. Not a one-way handoff between separate solvers.",
     },
     {
-      title: "Chirped Pulse Design & Analysis",
-      body: "Engineer ultrafast chirped pulses with precise control over temporal and spectral profiles. Model pulse compression, stretching, and nonlinear phase evolution in dispersive media.",
-      icon: "pulse",
+      title: "Many-body semiconductor physics, built in",
+      body:
+        "Coulomb screening, exciton correlations, band-gap renormalization, LO/LA phonon scattering, dephasing, and DC-field transport all ported from peer-reviewed published physics.",
     },
     {
-      title: "Quantum Energy Transfer Dynamics",
-      body: "Track energy flow between light fields and quantum carriers in real-time. Visualize absorption, stimulated emission, and coherent energy exchange at the femtosecond scale.",
-      icon: "energy",
-    },
-    {
-      title: "Self-Consistent Maxwell + SBE Coupling",
-      body: "The only platform solving 3D Maxwell equations with Semiconductor Bloch Equations at every timestep. Quantum carrier dynamics and light propagation evolve together — no decoupling.",
-      icon: "physics",
-    },
-    {
-      title: "Many-Body Coulomb & Phonon Physics",
-      body: "Exciton correlations, band-gap renormalization, carrier screening, and LO/LA phonon scattering. Model realistic thermalization and carrier relaxation in nanostructures.",
-      icon: "quantum",
-    },
-    {
-      title: "GPU-Accelerated Python",
-      body: "Built on NumPy, Numba, and CuPy. Run on NVIDIA GPUs with one flag. Integrates with PyTorch, JAX, and modern ML pipelines. No legacy Fortran.",
-      icon: "gpu",
+      title: "Python-native, open, GPU-ready",
+      body:
+        "Built on NumPy, Numba, and pyFFTW, with CuPy / Numba CUDA paths. Interoperates with PyTorch and JAX for inverse design. LGPL-3.0 open source. No legacy Fortran, no per-seat license to evaluate.",
     },
   ],
 
-  // Use cases / applications
-  useCases: [
-    {
-      title: "Silicon Photonics & PICs",
-      description: "Design modulators, detectors, and waveguide structures with quantum-accurate carrier dynamics for next-gen photonic integrated circuits.",
-      industries: ["Data Centers", "Telecom", "AI Infrastructure"],
+  // Honest "where it fits / where it doesn't" — mirrors the Silicon Catalyst
+  // application's narrow positioning. This is a trust signal: teams who build
+  // serious software know what their tool isn't.
+  positioning: {
+    headline: "A deep solver for a narrow, technically demanding slice.",
+    lede:
+      "PulseSuite is not trying to replace mainstream photonic design automation. It complements it in the specific regime where coupled quantum carrier dynamics and electromagnetic propagation materially change the answer.",
+    goodFit: {
+      title: "Designed for",
+      items: [
+        "Quantum cascade lasers (QCLs)",
+        "VCSELs with full spatiotemporal dynamics",
+        "Quantum-confined Stark effect modulators",
+        "Photonic quantum sources and detectors",
+        "High-harmonic generation in solids",
+        "Ultrafast III-V device research",
+      ],
     },
-    {
-      title: "Quantum Light Sources",
-      description: "Simulate single-photon emitters, quantum dots, and entangled photon sources with full many-body physics and electromagnetic feedback.",
-      industries: ["Quantum Computing", "Quantum Communication", "Sensing"],
+    badFit: {
+      title: "Not the right tool for",
+      items: [
+        "Passive silicon photonics transceiver layout (use Lumerical or Tidy3D)",
+        "DC drift-diffusion TCAD (use Sentaurus or nextnano)",
+        "Ray-optics lens design (use Zemax or CODE V)",
+        "Circuit-level schematic capture and tape-out",
+      ],
     },
-    {
-      title: "Ultrafast Laser Systems",
-      description: "Model pulse propagation, carrier excitation, and nonlinear optical effects in semiconductor gain media and saturable absorbers.",
-      industries: ["Laser Manufacturing", "Medical Devices", "Scientific Instruments"],
-    },
-    {
-      title: "Optoelectronic Devices",
-      description: "Analyze LEDs, photodetectors, and solar cells with self-consistent optical and electronic transport simulations.",
-      industries: ["Consumer Electronics", "Automotive", "Renewable Energy"],
-    },
-  ],
-
-  // Comparison with competitors
-  comparison: {
-    headline: "Why Teams Choose PulseSuite",
-    description: "Existing tools solve electromagnetics OR quantum physics. PulseSuite solves both — together.",
-    competitors: [
-      {
-        name: "Ansys Lumerical",
-        limitation: "FDTD for passive photonics — no quantum carrier dynamics",
-      },
-      {
-        name: "Synopsys RSoft",
-        limitation: "Waveguide modes and gratings — no many-body semiconductor physics",
-      },
-      {
-        name: "COMSOL",
-        limitation: "General multiphysics — no Semiconductor Bloch Equations",
-      },
-    ],
-    pulsesuite: "Full Maxwell + SBE coupling with Coulomb, phonons, and screening — in one solver",
   },
 
-  // Call to action section
+  // Closing CTA — still docs-first for v1.
   cta: {
-    headline: "Ready to simulate at the quantum-classical boundary?",
-    subhead: "Join leading research teams and photonics companies using PulseSuite to design the next generation of ultrafast and quantum photonic devices.",
-    primaryCta: { label: "Request a Demo", href: "#contact" },
-    secondaryCta: { label: "Contact Sales", href: "#contact" },
+    headline: "Start with the documentation.",
+    subhead:
+      "Read the physics notes, run the examples, and open issues on GitHub. PulseSuite is alpha-stage open core product. Feedback from early users is what the project needs most right now.",
   },
 
-  // Contact / demo request section
-  contact: {
-    headline: "Get Started with PulseSuite",
-    subhead: "Request a demo or talk to our team about your simulation needs.",
-    email: "contact@pulsesuite.io", // TODO: Update with real email
-    calendly: "", // TODO: Add calendly link if available
+  // Light commercial signal. Not pricing, not a tier grid — just a quiet
+  // line for companies and labs who want to talk about pilots, training,
+  // or on-prem support. Keeps academic users feeling welcome while signaling
+  // that there's a business forming around the project.
+  forTeams: {
+    eyebrow: "For teams",
+    headline: "Open source core · Commercial services available.",
+    // Lead copy for the section. Kept as one string so it wraps naturally.
+    body:
+      "Today: free local install under LGPL `pip install pulsesuite`, run on your CPU or GPU. " +
+      "In development: a hosted GPU runtime for teams who need 3D simulations to finish in minutes, not days.",
+    // Second paragraph, sets who this section is speaking to.
+    audience:
+      "Research groups and companies working on QCLs, VCSELs, photonic quantum devices, or other coupled-physics problems. Join the cloud waitlist for early access, or reach out directly about pilot engagements and training.",
+
+    // Primary CTA: waitlist for the hosted cloud product.
+    // For v1 this is a pre-filled mailto — zero backend setup. When you're
+    // ready to collect emails at scale, swap this href for a Formspree,
+    // Tally, or Buttondown URL. No component code changes needed.
+    waitlist: {
+      label: "Join the cloud waitlist",
+      href:
+        "mailto:sahra1@furman.edu?subject=PulseSuite%20cloud%20waitlist" +
+        "&body=Please%20add%20me%20to%20the%20PulseSuite%20hosted-cloud%20early-access%20waitlist.%0A%0A" +
+        "Name%3A%20%0A" +
+        "Affiliation%20%2F%20company%3A%20%0A" +
+        "Device%20type%20or%20simulation%20use%20case%3A%20%0A",
+    },
+
+    // Secondary CTA: direct commercial inquiry for labs/companies that want
+    // to start a specific pilot conversation, not just join a waitlist.
+    contactEmail: "sahra1@furman.edu", // TODO: replace with real inbox before shipping
+    contactLabel: "Commercial inquiry",
   },
 
-  // Footer
+  // Footer.
   footer: {
-    copyright: `© ${new Date().getFullYear()} PulseSuite. All rights reserved.`,
-    tagline: "Ultrafast Photonics Simulation Platform",
+    blurb:
+      "An alpha-stage open-source computational physics toolkit. Research lineage: Dr. Jeremy R. Gulley, Furman University.",
+    tagline: "Open source core · Commercial services available",
+    copyright: `© ${new Date().getFullYear()} PulseSuite contributors. Released under LGPL-3.0-or-later.`,
   },
+} as const;
 
-  // Demo section - placeholder for simulation outputs
-  demo: {
-    headline: "See PulseSuite in Action",
-    subhead: "Visualize ultrafast pulse propagation, energy transfer dynamics, and 3D field evolution in real semiconductor structures.",
-    // TODO: Add paths to simulation images/videos
-    items: [
-      {
-        title: "3D Electric Field Propagation",
-        description: "Watch the full 3D evolution of electromagnetic fields through a quantum structure with absorbing boundaries.",
-        media: "/demo/3d-field-propagation.mp4", // TODO: Add actual file
-        type: "video",
-      },
-      {
-        title: "Chirped Pulse Dynamics",
-        description: "Ultrafast chirped pulse compression and reshaping as it interacts with dispersive quantum media.",
-        media: "/demo/chirped-pulse.png", // TODO: Add actual file
-        type: "image",
-      },
-      {
-        title: "Quantum Energy Transfer",
-        description: "Real-time energy flow between optical fields and carrier populations — absorption, emission, and coherent exchange.",
-        media: "/demo/energy-transfer.png", // TODO: Add actual file
-        type: "image",
-      },
-    ],
-  },
-};
+export type Site = typeof site;
